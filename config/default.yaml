@@ -1,0 +1,31 @@
+backend: sqlite
+sqlite_path: data/trendscope.db
+output_dir: output
+
+data:
+  start_date: "2021-01-01"
+  end_date: "2024-12-31"
+  regions: [NA, EMEA, APAC, LATAM]
+  product_lines: [Hardware, Software, Services]
+  channels: [Direct, Partner]
+  seed: 42
+
+forecast:
+  frequency: W          # D, W or M
+  horizon: 26           # periods ahead
+  models: [arima, prophet, seasonal_naive]
+  selection_metric: smape
+  ensemble: true        # blend top models by inverse error
+  interval_width: 0.8
+  min_history: 52       # periods required to forecast a segment
+
+backtest:
+  folds: 3
+  horizon: 13
+  step: 13
+
+sizing:
+  penetration_ceiling: 0.35   # share of TAM considered realistically capturable
+  growth_weight: 0.3
+  headroom_weight: 0.5
+  confidence_weight: 0.2
