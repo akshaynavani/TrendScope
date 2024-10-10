@@ -50,8 +50,8 @@ class SqliteBackend(SqlBackend):
             if pd.api.types.is_datetime64_any_dtype(out[col]):
                 out[col] = out[col].dt.strftime("%Y-%m-%d")
         with self.engine.begin() as conn:
-            if mode == "replace":
-                conn.execute(text(f"DELETE FROM {table}")) if self._exists(conn, table) else None
+            if mode == "replace" and self._exists(conn, table):
+                conn.execute(text(f"DELETE FROM {table}"))
             out.to_sql(table, conn, if_exists="append", index=False, chunksize=5000)
 
     @staticmethod
