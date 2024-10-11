@@ -43,6 +43,9 @@ def resample_series(daily: pd.Series, freq: str) -> pd.Series:
         expected_end = last_start + pd.tseries.frequencies.to_offset(alias)
         if daily.index.max() < expected_end - pd.Timedelta(days=1):
             out = out.iloc[:-1]
+    # Likewise drop a leading partial period.
+    if freq != "D" and len(out) > 1 and daily.index.min() > out.index[0]:
+        out = out.iloc[1:]
     out.index.freq = pd.tseries.frequencies.to_offset(alias)
     return out
 
