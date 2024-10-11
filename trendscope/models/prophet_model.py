@@ -7,7 +7,7 @@ import logging
 import numpy as np
 import pandas as pd
 
-from trendscope.features import FREQ_ALIASES
+from trendscope.features import FREQ_ALIASES, future_index
 from trendscope.models.base import Forecaster, ForecastResult, ModelUnavailable
 
 
@@ -66,8 +66,7 @@ class ProphetForecaster(Forecaster):
             periods=horizon, freq=FREQ_ALIASES[self.frequency], include_history=False
         )
         fc = self.model.predict(future)
-        idx = pd.DatetimeIndex(fc["ds"])
-        idx.freq = train.index.freq
+        idx = future_index(train, horizon)
         return ForecastResult(
             model=self.name,
             yhat=pd.Series(np.clip(fc["yhat"].values, 0, None), index=idx),
