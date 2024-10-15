@@ -20,7 +20,7 @@ TABLE_COLUMNS = {
                          "ttm_revenue", "forecast_annual_revenue", "forecast_growth", "forecast_year",
                          "tam_current", "tam_forecast", "current_share", "forecast_share",
                          "capturable_revenue", "headroom", "headroom_low", "headroom_high",
-                         "opportunity_score", "rank", "headroom_share", "tier"],
+                         "opportunity_score", "opportunity_rank", "headroom_share", "tier"],
     "forecast_runs": ["run_id", "created_at", "frequency", "horizon", "n_segments", "as_of"],
 }
 

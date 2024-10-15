@@ -95,7 +95,7 @@ def render_all(
     ]
     if not leaderboard.empty:
         written.append(accuracy_dashboard(leaderboard, metric, out / "accuracy.png"))
-    top = sized.sort_values("rank")["segment_id"].head(9).tolist()
+    top = sized.sort_values("opportunity_rank")["segment_id"].head(9).tolist()
     written.append(forecast_grid(series, forecasts, top, out / "top_segments_forecast.png"))
 
     if per_segment:

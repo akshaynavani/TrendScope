@@ -117,7 +117,7 @@ def plot_share_vs_growth(ax: plt.Axes, sized: pd.DataFrame) -> plt.Axes:
             color=TIER_COLORS.get(tier, CATEGORICAL[6]), edgecolor=SURFACE, linewidth=2,
             alpha=0.9, label=tier,
         )
-    for _, row in df.nsmallest(3, "rank").iterrows():
+    for _, row in df.nsmallest(3, "opportunity_rank").iterrows():
         ax.annotate(row["segment_id"], (row["current_share"], row["forecast_growth"]),
                     xytext=(6, 6), textcoords="offset points", fontsize=7, color=TEXT_SECONDARY)
     ax.axhline(0, color=TEXT_SECONDARY, linewidth=0.8)

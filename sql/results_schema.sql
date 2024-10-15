@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS {prefix}segment_headroom (
     headroom_low            DOUBLE,
     headroom_high           DOUBLE,
     opportunity_score       DOUBLE,
-    rank                    INTEGER,
+    opportunity_rank        INTEGER,
     headroom_share          DOUBLE,
     tier                    VARCHAR(16)
 );

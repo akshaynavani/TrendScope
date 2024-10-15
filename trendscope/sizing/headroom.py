@@ -104,7 +104,7 @@ def _minmax(s: pd.Series) -> pd.Series:
 
 
 def score_opportunities(sized: pd.DataFrame, cfg: SizingConfig) -> pd.DataFrame:
-    """Add a 0-100 ``opportunity_score``, ``rank`` and an action ``tier``."""
+    """Add a 0-100 ``opportunity_score``, ``opportunity_rank`` and an action ``tier``."""
     if sized.empty:
         return sized
     out = sized.copy()
@@ -118,7 +118,7 @@ def score_opportunities(sized: pd.DataFrame, cfg: SizingConfig) -> pd.DataFrame:
         + cfg.confidence_weight * out["confidence"].clip(0, 1).fillna(0)
     ) / w_total
     out["opportunity_score"] = (score * 100).round(1)
-    out["rank"] = out["opportunity_score"].rank(ascending=False, method="min").astype(int)
+    out["opportunity_rank"] = out["opportunity_score"].rank(ascending=False, method="min").astype(int)
     out["headroom_share"] = out["headroom"] / out["headroom"].sum() if out["headroom"].sum() > 0 else 0.0
 
     def _tier(row) -> str:
@@ -131,4 +131,4 @@ def score_opportunities(sized: pd.DataFrame, cfg: SizingConfig) -> pd.DataFrame:
         return "Monitor"
 
     out["tier"] = out.apply(_tier, axis=1)
-    return out.sort_values("rank").reset_index(drop=True)
+    return out.sort_values("opportunity_rank").reset_index(drop=True)
