@@ -62,7 +62,7 @@ def persist_results(
 
 
 def export_csv(output_dir: Path, run_id: str, **frames: pd.DataFrame) -> list[Path]:
-    out = Path(output_dir) / "exports" / run_id
+    out = Path(output_dir) / run_id / "exports"
     out.mkdir(parents=True, exist_ok=True)
     written = []
     for name, df in frames.items():
