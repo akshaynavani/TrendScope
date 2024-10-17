@@ -1,0 +1,36 @@
+{
+  "name": "trendscope-weekly-forecast",
+  "schedule": {
+    "quartz_cron_expression": "0 0 6 ? * MON",
+    "timezone_id": "UTC",
+    "pause_status": "UNPAUSED"
+  },
+  "max_concurrent_runs": 1,
+  "tasks": [
+    {
+      "task_key": "forecast_and_size",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Repos/trendscope/databricks/trendscope_job",
+        "base_parameters": {
+          "catalog": "main",
+          "schema": "trendscope",
+          "frequency": "W",
+          "horizon": "26",
+          "output_dir": "/Volumes/main/trendscope/artifacts",
+          "secret_scope": "trendscope"
+        }
+      },
+      "new_cluster": {
+        "spark_version": "15.4.x-scientific-scala2.12",
+        "node_type_id": "i3.xlarge",
+        "num_workers": 0,
+        "spark_conf": {
+          "spark.databricks.cluster.profile": "singleNode",
+          "spark.master": "local[*]"
+        },
+        "custom_tags": { "ResourceClass": "SingleNode" }
+      },
+      "timeout_seconds": 7200
+    }
+  ]
+}
