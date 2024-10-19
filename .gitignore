@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Environments & secrets
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Local data and pipeline outputs
+/data/
+/output/
+*.db
+*.sqlite
+
+# Notebooks / IDE / OS
+.ipynb_checkpoints/
+.idea/
+.vscode/
+.DS_Store
+
+# Databricks CLI
+.databricks/
